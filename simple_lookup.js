@@ -21,12 +21,13 @@ client.connect((err) => {
     if (err) {
       return console.error("error running query", err);
     }
-    printResult(result.rows)
+    printResult(result.rows, input)
     client.end();
   });
 });
 
-const printResult = (resultArray) => {
+const printResult = (resultArray, input) => {
+  console.log(`Found ${resultArray.length} person(s) by the name ${input}:`)
   resultArray.forEach(function(element, i){
     let seq = i + 1;
     let firstName = element.first_name;
