@@ -12,6 +12,18 @@ const client = new pg.Client({
 
 const input = process.argv[2];
 
+const printResult = (resultArray, input) => {
+  console.log(`Found ${resultArray.length} person(s) by the name ${input}:`)
+  resultArray.forEach(function(element, i){
+    let seq = i + 1;
+    let firstName = element.first_name;
+    let lastName = element.last_name;
+    let birthDate = element.birthdate.toISOString().slice(0, 10);
+    console.log(`- ${seq}: ${firstName} ${lastName}, born ${birthDate}`)
+  });
+};
+
+
 client.connect((err) => {
   if (err) {
     return console.error("Connection Error", err);
@@ -26,13 +38,3 @@ client.connect((err) => {
   });
 });
 
-const printResult = (resultArray, input) => {
-  console.log(`Found ${resultArray.length} person(s) by the name ${input}:`)
-  resultArray.forEach(function(element, i){
-    let seq = i + 1;
-    let firstName = element.first_name;
-    let lastName = element.last_name;
-    let birthDate = element.birthdate.toISOString().slice(0, 10);
-    console.log(`- ${seq}: ${firstName} ${lastName}, born ${birthDate}`)
-  });
-}
